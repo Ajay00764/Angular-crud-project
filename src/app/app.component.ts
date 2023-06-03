@@ -72,14 +72,21 @@ export class AppComponent {
     }
   }
 
-  deleteHotel(id: number) {
-    console.log(this.storeData[id - 1])
-    this.storeData.splice(id - 1, 1);
-    console.log(id)
+  deleteHotel(id: any) {
+    // console.log(this.storeData[id - 1])
+    // this.storeData.splice(id - 1, 1);
+    // console.log(id)
+    // this.dataSource = new MatTableDataSource(this.storeData);
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // console.log(this.storeData)
+    const index = this.storeData.findIndex((obj: any) => obj.id === id);
+    if (index !== -1) {
+      this.storeData.splice(index, 1);
+    }
     this.dataSource = new MatTableDataSource(this.storeData);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    console.log(this.storeData)
   }
 
   openHotelForm(data: any) {
