@@ -1,0 +1,10 @@
+.borderof{
+    tr{
+        border-collapse: collapse;
+        td{
+            border: 1px solid black;
+            padding: 5px;
+            border-collapse: collapse;
+        }
+    }
+}
