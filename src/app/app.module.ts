@@ -12,10 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormComponent } from './form/form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatToolbarModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    MatButtonModule,
     MatSortModule,
     MatTableModule,
     MatDialogModule

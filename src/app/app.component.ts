@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableDataService } from './services/table-data.service';
+import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
     'options'
   ];
   dataSource!: MatTableDataSource<any>;
+  items: any[] = []
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -34,7 +36,13 @@ export class AppComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getHotelList();
+    this.service.getItems().subscribe((items: any) => {
+      console.log(items)
+      this.storeData = items
+      this.dataSource = new MatTableDataSource(items);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   hotelRegister() {
@@ -50,19 +58,6 @@ export class AppComponent {
 
   storeData: any[] = []
 
-  getHotelList() {
-    this.service.getUserData().subscribe({
-      next: (res: any) => {
-        this.storeData = res;
-        this.dataSource = new MatTableDataSource(this.storeData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        console.log(this.storeData)
-      },
-      error: console.log,
-    })
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -72,35 +67,27 @@ export class AppComponent {
     }
   }
 
-  deleteHotel(id: any) {
-    // console.log(this.storeData[id - 1])
-    // this.storeData.splice(id - 1, 1);
-    // console.log(id)
-    // this.dataSource = new MatTableDataSource(this.storeData);
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    // console.log(this.storeData)
+  deleteItem(id: number): void {
     const index = this.storeData.findIndex((obj: any) => obj.id === id);
     if (index !== -1) {
       this.storeData.splice(index, 1);
     }
     this.dataSource = new MatTableDataSource(this.storeData);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
   }
 
   openHotelForm(data: any) {
-    // const dialogRef = this.dialog.open(UpdateHotelsComponent, {
-    //   data,
-    // });
+    const dialogRef = this.dialog.open(FormComponent, {
+      data,
+    });
 
-    // dialogRef.afterClosed().subscribe({
-    //   next: (val) => {
-    //     if (val) {
-    //       this.getHotelList();
-    //     }
-    //   }
-    // })
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+        }
+      }
+    })
   }
 
 }

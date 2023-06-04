@@ -3,10 +3,11 @@
         <div class="main-body">
 
 
-            <mat-form-field style="width: 100vw;">
+            <mat-form-field style="width: 80vw;">
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Taj" #input>
             </mat-form-field>
+            <button mat-raised-button color="primary" style="margin: 0 20px;" (click)="openHotelForm(null)">Add Data</button>
     
             <div class="table-container">
                 <table mat-table [dataSource]="dataSource" matSort>
@@ -40,7 +41,7 @@
                     <!-- Progress Column -->
                     <ng-container matColumnDef="image">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
-                        <td mat-cell *matCellDef="let row"> {{row.image}}</td>
+                        <td mat-cell *matCellDef="let row"> <img style="height: 50px; width: 50px;" src="{{row.image}}" alt="Image"></td>
                     </ng-container>
                     <!-- Progress Column -->
                     <ng-container matColumnDef="rating">
@@ -63,7 +64,7 @@
                             <button mat-icon-button color="primary" (click)="openHotelForm(row)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" (click)="deleteHotel(row.id)">
+                            <button mat-icon-button color="warn" (click)="deleteItem(row.id)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </td>
