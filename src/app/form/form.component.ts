@@ -33,12 +33,9 @@ export class FormComponent {
 
   hotelRegistr() {
     if (this.hotelForm.valid) {
-      console.log("valid")
       if (this.data) {
-        console.log("data")
         this.service.updateItem(this.data.id, this.hotelForm.value).subscribe({
           next: (val: any) => {
-            console.log(val)
             this.dialog.close(true);
           },
           error: (err: any) => {

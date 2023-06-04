@@ -45,17 +45,6 @@ export class AppComponent {
     });
   }
 
-  hotelRegister() {
-    // const dialogRef = this.dialog.open(UpdateHotelsComponent)
-    // dialogRef.afterClosed().subscribe({
-    //   next: (val) => {
-    //     if (val) {
-    //       this.getHotelList();
-    //     }
-    //   }
-    // })
-  }
-
   storeData: any[] = []
 
   applyFilter(event: Event) {
@@ -85,6 +74,11 @@ export class AppComponent {
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
+          this.service.getItems().subscribe((items: any) => {
+            this.dataSource = new MatTableDataSource(items);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          });
         }
       }
     })
